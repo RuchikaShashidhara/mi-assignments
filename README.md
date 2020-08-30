@@ -3,9 +3,9 @@ This repository contains the assignments submitted for the course Machine Intell
 
 ## Assignment 1 - Decision Tree Classifier
 
-| Requirements  | Implementation file  | Sample Test Validation file |
-| --------------| -------------------- | --------------------------- |
-| numpy, pandas | DT_SampleTestCase.py | DT_SampleTestCase.py        |
+| Requirements  | Implementation file | Sample Test Validation file |
+| --------------| ------------------- | --------------------------- |
+| numpy, pandas | Assignment1.py      | DT_SampleTestCase.py        |
 
 ### Instructions to run:
 ```python3 DT_SampleTestCase.py```
