@@ -69,10 +69,15 @@ def get_selected_attribute(df):
 
     # List of attributes, assuming the last column is the decision taken.
     attributes = list(df)[:-1]
+    # Calculate information gain for each attribute
+    attribute_information_gain = list(map(lambda x:get_information_gain(df,x),attributes))
+
     # Pairing attribute with its respective information gain
-    information_gains=dict(zip(attributes,map(lambda x:get_information_gain(df,x),attributes)))
-    # Chose the attribute with maximum information gain
-    selected_column=max(information_gains,key = information_gains.get)
+    information_gains=dict(zip(attributes,attribute_information_gain))
+
+    # Chose the attribute with the maximum information gain
+    max_info_gain_index, _ = max(enumerate(attribute_information_gain),key = lambda x:x[1])
+    selected_column = attributes[max_info_gain_index]
 
     '''
     Return a tuple with the first element as a dictionary which has IG of all columns
