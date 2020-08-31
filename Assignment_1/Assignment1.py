@@ -11,12 +11,22 @@ def get_entropy_of_dataset(df):
     entropy = 0
 
     # Obtain list of unique target values, here 'yes' or 'no'
-    target_values = df.play.unique()
+    # target_values = df.play.unique()
+
+    # Making it generic
+    rows = df.shape[0]
+    lastColIndex = df.shape[1] - 1
+    lastColAttrs = df.iloc[:,lastColIndex].value_counts()
+    numOfAttrs = len(lastColAttrs)
 
     # Sumation of -pi*log(pi)
-    for tar_val in target_values:
-        pi = df.play.value_counts()[tar_val] / len(df.play)  # epsilon not needed
-        entropy += -(pi * np.log2(pi + np.finfo(float).eps))
+    # for tar_val in target_values:
+        # pi = df.play.value_counts()[tar_val] / len(df.play)  # epsilon not needed
+    #     entropy += -(pi * np.log2(pi + np.finfo(float).eps))
+
+    for i in range(numOfAttrs):
+    	fraction = lastColAttrs[i]/rows
+    	entropy += -(fraction)*np.log2(fraction)
 
     # Return Entropy(S) of dataset
     return entropy
