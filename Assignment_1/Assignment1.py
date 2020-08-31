@@ -15,7 +15,7 @@ def get_entropy_of_dataset(df):
 
     # Sumation of -pi*log(pi)
     for tar_val in target_values:
-        pi = df.play.value_counts()[tar_val] / (len(df.play) + np.finfo(float).eps)
+        pi = df.play.value_counts()[tar_val] / len(df.play)  # epsilon not needed
         entropy += -(pi * np.log2(pi + np.finfo(float).eps))
 
     # Return Entropy(S) of dataset
@@ -44,22 +44,22 @@ def get_entropy_of_attribute(df,attribute):
             # Find pi numerator
             pi_num = len(df[attribute][df[attribute] == att_val][df.play == tar_val])
             # Find pi
-            pi = pi_num / (pi_den + np.finfo(float).eps)
+            pi = pi_num / pi_den # epsilon not needed
             # Accumulate Feature Entropy(A=att_val)
             entropy_of_feature += -(pi * np.log2(pi + np.finfo(float).eps))
 
         # Accumulate Attribute Entropy(A=att_val)
-        entropy_of_attribute += -((pi_den/len(df) * entropy_of_feature))
+        entropy_of_attribute += ((pi_den/len(df) * entropy_of_feature))
 
     # Return Attribute Entropy(A)
-    return np.absolute(entropy_of_attribute)
+    return entropy_of_attribute
 
 
 
 '''Return Information Gain of the attribute provided as parameter'''
 def get_information_gain(df,attribute):
     # Information Gain(S,A) of attribute A = Dataset Entropy(S) - Attribute Entropy(A)
-	information_gain = get_entropy_of_dataset - get_entropy_of_attribute(df,attribute)
+	information_gain = get_entropy_of_dataset(df) - get_entropy_of_attribute(df,attribute)
 	return information_gain
 
 
@@ -67,17 +67,21 @@ def get_information_gain(df,attribute):
 ''' Returns Attribute with highest info gain'''
 def get_selected_attribute(df):
 
-	information_gains={}
-	selected_column=''
+    # List of attributes, assuming the last column is the decision taken.
+    attributes = list(df)[:-1]
+    # Pairing attribute with its respective information gain
+    information_gains=dict(zip(attributes,map(lambda x:get_information_gain(df,x),attributes)))
+    # Chose the attribute with maximum information gain
+    selected_column=max(information_gains,key = information_gains.get)
 
-	'''
-	Return a tuple with the first element as a dictionary which has IG of all columns
-	and the second element as a string with the name of the column selected
+    '''
+    Return a tuple with the first element as a dictionary which has IG of all columns
+    and the second element as a string with the name of the column selected
 
-	example : ({'A':0.123,'B':0.768,'C':1.23} , 'C')
-	'''
+    example : ({'A':0.123,'B':0.768,'C':1.23} , 'C')
+    '''
 
-	return (information_gains,selected_column)
+    return (information_gains,selected_column)
 
 
 
