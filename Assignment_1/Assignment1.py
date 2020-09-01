@@ -10,23 +10,17 @@ def get_entropy_of_dataset(df):
     # Initialize Entropy(S)
     entropy = 0
 
-    # Obtain list of unique target values, here 'yes' or 'no'
-    # target_values = df.play.unique()
-
     # Making it generic
-    rows = df.shape[0]
-    lastColIndex = df.shape[1] - 1
-    lastColAttrs = df.iloc[:,lastColIndex].value_counts()
-    numOfAttrs = len(lastColAttrs)
+    lastColName = df.columns[-1]
+
+    # Obtain list of unique target values, here 'yes' or 'no'
+    target_values = df[lastColName].unique()
+
 
     # Sumation of -pi*log(pi)
-    # for tar_val in target_values:
-        # pi = df.play.value_counts()[tar_val] / len(df.play)  # epsilon not needed
-    #     entropy += -(pi * np.log2(pi + np.finfo(float).eps))
-
-    for i in range(numOfAttrs):
-    	fraction = lastColAttrs[i]/rows
-    	entropy += -(fraction)*np.log2(fraction)
+    for tar_val in target_values:
+        pi = df[lastColName].value_counts()[tar_val] / len(df[lastColName])  # epsilon not needed
+        entropy += -(pi * np.log2(pi + np.finfo(float).eps))
 
     # Return Entropy(S) of dataset
     return entropy
@@ -38,8 +32,11 @@ def get_entropy_of_attribute(df,attribute):
     # Initialize Attribute Entropy(A)
     entropy_of_attribute = 0
 
+    # Making it generic
+    lastColName = df.columns[-1]
+
     # Obtain list of unique target values, here 'yes' or 'no'
-    target_values = df.play.unique()
+    target_values = df[lastColName].unique()
     # Obtain list of unique features/values of attribute
     attribute_values = df[attribute].unique()
 
@@ -52,7 +49,7 @@ def get_entropy_of_attribute(df,attribute):
         # Sumation of pi*log(pi) of Sv or Feature Entropy(A=att_val)
         for tar_val in target_values:
             # Find pi numerator
-            pi_num = len(df[attribute][df[attribute] == att_val][df.play == tar_val])
+            pi_num = len(df[attribute][df[attribute] == att_val][df[lastColName] == tar_val])
             # Find pi
             pi = pi_num / pi_den # epsilon not needed
             # Accumulate Feature Entropy(A=att_val)
