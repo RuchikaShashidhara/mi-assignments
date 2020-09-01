@@ -10,12 +10,10 @@ def get_entropy_of_dataset(df):
     # Initialize Entropy(S)
     entropy = 0
 
-    # Making it generic
+    # Obtain the column of desicion to be taken(generic - last columnn)
     lastColName = df.columns[-1]
-
-    # Obtain list of unique target values, here 'yes' or 'no'
+    # Obtain list of unique target values
     target_values = df[lastColName].unique()
-
 
     # Sumation of -pi*log(pi)
     for tar_val in target_values:
@@ -32,31 +30,35 @@ def get_entropy_of_attribute(df,attribute):
     # Initialize Attribute Entropy(A)
     entropy_of_attribute = 0
 
-    # Making it generic
-    lastColName = df.columns[-1]
+    try:
+        # Obtain the column of desicion to be taken(generic - last columnn)
+        lastColName = df.columns[-1]
+        # Obtain list of unique target values
+        target_values = df[lastColName].unique()
+        # Obtain list of unique features/values of attribute
+        attribute_values = df[attribute].unique()
 
-    # Obtain list of unique target values, here 'yes' or 'no'
-    target_values = df[lastColName].unique()
-    # Obtain list of unique features/values of attribute
-    attribute_values = df[attribute].unique()
+        for att_val in attribute_values:
 
-    for att_val in attribute_values:
-        # Initialize Feature Entropy(A=att_val) or Sv
-        entropy_of_feature = 0
-        # Find pi denominator
-        pi_den = len(df[attribute][df[attribute] == att_val])
+            # Initialize Feature Entropy(A=att_val) or Sv
+            entropy_of_feature = 0
+            # Find pi denominator
+            pi_den = len(df[attribute][df[attribute] == att_val])
 
-        # Sumation of pi*log(pi) of Sv or Feature Entropy(A=att_val)
-        for tar_val in target_values:
-            # Find pi numerator
-            pi_num = len(df[attribute][df[attribute] == att_val][df[lastColName] == tar_val])
-            # Find pi
-            pi = pi_num / pi_den # epsilon not needed
-            # Accumulate Feature Entropy(A=att_val)
-            entropy_of_feature += -(pi * np.log2(pi + np.finfo(float).eps))
+            # Sumation of pi*log(pi) of Sv or Feature Entropy(A=att_val)
+            for tar_val in target_values:
+                # Find pi numerator
+                pi_num = len(df[attribute][df[attribute] == att_val][df[lastColName] == tar_val])
+                # Find pi
+                pi = pi_num / pi_den # epsilon not needed
+                # Accumulate Feature Entropy(A=att_val)
+                entropy_of_feature += -(pi * np.log2(pi + np.finfo(float).eps))
 
-        # Accumulate Attribute Entropy(A=att_val)
-        entropy_of_attribute += ((pi_den/len(df) * entropy_of_feature))
+            # Accumulate Attribute Entropy(A=att_val)
+            entropy_of_attribute += ((pi_den/len(df) * entropy_of_feature))
+
+    except KeyError:
+        print("Attribute:", attribute, "not in dataset")
 
     # Return Attribute Entropy(A)
     return entropy_of_attribute
@@ -65,24 +67,33 @@ def get_entropy_of_attribute(df,attribute):
 
 '''Return Information Gain of the attribute provided as parameter'''
 def get_information_gain(df,attribute):
-    # Information Gain(S,A) of attribute A = Dataset Entropy(S) - Attribute Entropy(A)
-	information_gain = get_entropy_of_dataset(df) - get_entropy_of_attribute(df,attribute)
-	return information_gain
+    # Initialize Information Gain(S,A)
+    information_gain = 0
+
+    try:
+        # Information Gain(S,A) of attribute A = Dataset Entropy(S) - Attribute Entropy(A)
+        information_gain = get_entropy_of_dataset(df) - get_entropy_of_attribute(df,attribute)
+
+    except KeyError:
+        print("Attribute:", attribute, "not in dataset")
+
+    return information_gain
 
 
 
 ''' Returns Attribute with highest info gain'''
 def get_selected_attribute(df):
 
-    # List of attributes, assuming the last column is the decision taken.
+    # Obtain list of attributes, assuming the last column is the decision taken.
     attributes = list(df)[:-1]
+
     # Calculate information gain for each attribute
     attribute_information_gain = list(map(lambda x:get_information_gain(df,x),attributes))
 
-    # Pairing attribute with its respective information gain
-    information_gains=dict(zip(attributes,attribute_information_gain))
+    # Pair attributes with its respective information gain
+    information_gains = dict(zip(attributes,attribute_information_gain))
 
-    # Chose the attribute with the maximum information gain
+    # Choose the attribute with the maximum information gain
     max_info_gain_index, _ = max(enumerate(attribute_information_gain),key = lambda x:x[1])
     selected_column = attributes[max_info_gain_index]
 
