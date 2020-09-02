@@ -8,6 +8,10 @@ def get_entropy_of_dataset(df):
     # Initialize Entropy(S)
     entropy = 0
 
+    # Return 0 if dataset is empty
+    if df.empty:
+        return entropy
+
     # Obtain the column of desicion to be taken(generic - last columnn)
     lastColName = df.columns[-1]
     # Obtain list of unique target values
@@ -28,6 +32,10 @@ def get_entropy_of_dataset(df):
 def get_entropy_of_attribute(df,attribute):
     # Initialize Attribute Entropy(A)
     entropy_of_attribute = 0
+
+    # Return 0 if dataset is empty
+    if df.empty:
+        return entropy_of_attribute
 
     try:
         # Obtain the column of desicion to be taken(generic - last columnn)
@@ -82,6 +90,10 @@ def get_information_gain(df,attribute):
 
 ''' Return Attribute with highest info gain'''
 def get_selected_attribute(df):
+
+    # Return 0 if dataset is empty
+    if df.empty or len(df.columns) == 1:
+        return (dict(),'')
 
     # Obtain list of attributes, assuming the last column is the decision taken.
     attributes = list(df)[:-1]
