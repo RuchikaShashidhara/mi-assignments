@@ -1,18 +1,58 @@
 import queue
+import copy
 
-def A_star_Traversal( ):
+def A_star_Traversal(cost, heuristic, start_point, goals):
 
     # Parameters
     A_star_path = []
 
     return A_star_path
 
-def UCS_Traversal( ):
+
+def UCS_Traversal(cost, start_point, goals):
 
     # Parameters
-    UCS_path = []
+    #UCS_path = []                                               # UCS Traversal Path
+    # I have just appeneded a list of node paths corresponding to path cost till that node into the PQ itself
+    # its better if we make a backtracking path tree DS ourselves
+    n = len(cost)                                               # Number of Nodes in Graph
+    visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
+    frontier_priority_queue = queue.PriorityQueue(maxsize = n)  # Frontier Priority Queue
 
-    return UCS_path
+    # Insert (0, (start_point, UCS_path_till_start_point)) into priority queue
+    frontier_priority_queue.put((0, (start_point, [start_point])))
+
+    # Until priority queue is not empty
+    while(frontier_priority_queue.qsize() != 0):
+
+        # Pop the node information from the priority queue
+        node_cost, nodes_tuple = frontier_priority_queue.get()
+        node = nodes_tuple[0]
+        ucs_path_till_node = nodes_tuple[1]
+        #print(ucs_path_till_node)
+
+        # If the node was not visited
+        if visited[node] == 0:
+            visited[node] = 1
+
+            # If node is a goal_point, return the UCS Path till Goal Node
+            if node in goals:
+                return ucs_path_till_node
+
+            # For every neighbour connected node
+            for neighbour_node in range(1, n):
+                # Connected node has cost > 0
+                if cost[node][neighbour_node] > 0:
+                    # If the connected node is not visited, insert it into the priority queue
+                    if visited[neighbour_node] == 0:
+                        # Add the total cost till node
+                        total_cost_till_node = node_cost + cost[node][neighbour_node]
+                        # Add the neighbour node to the new ucs path list
+                        ucs_path_till_neighbour_node = copy.deepcopy(ucs_path_till_node)
+                        ucs_path_till_neighbour_node.append(neighbour_node)
+                        # Insert (total cost till node, (neighbour_node, UCS_path_till_neighbour_node)) into priority queue
+                        frontier_priority_queue.put((total_cost_till_node, (neighbour_node, ucs_path_till_neighbour_node)))
+
 
 def DFS_Traversal(cost, start_point, goals):
 
@@ -83,8 +123,8 @@ def tri_traversal(cost, heuristic, start_point, goals):
     l = []
 
     t1 = DFS_Traversal(cost, start_point, goals)
-    t2 = UCS_Traversal( )
-    t3 = A_star_Traversal( )
+    t2 = UCS_Traversal(cost, start_point, goals)
+    t3 = A_star_Traversal(cost, heuristic, start_point, goals)
 
     l.append(t1)
     l.append(t2)
