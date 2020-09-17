@@ -49,7 +49,7 @@ m - Number of goals ( Can be more than 1)
 cost[n][n] - Cost matrix for the graph of size (n+1)x(n+1)
 (The 0th row and 0th column is not considered as the starting index is from 1 and not 0)
 
-heuristic[n][n] - Heuristic list for the graph of size 'n+1'
+heuristic[n] - Heuristic list for the graph of size 'n+1'
 (Ignore 0th index as nodes start from index value of 1)
 
 start_point - single start node
@@ -60,6 +60,6 @@ goals[m] - list of size 'm' containing 'm' goals to reach from start_point
 (parameters yet to be added for first 3 functions, additional helper fucntions also to be added)
 1) ```get_selected_attribute(cost, heuristic, sart_point, goals)``` Returns all lexicological first path traversals [[],[],[]] for each - A-star, UCS and DFS traversals
 2)  ```A_star_Traversal()```
-3)  ```UCS_Traversal()```
-4)  ```DFS_Traversal()```
+3)  ```UCS_Traversal()``` Returns lexicological first UCS path
+4)  ```DFS_Traversal()``` Returns lexicological first DFS path
 
