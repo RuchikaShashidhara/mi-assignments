@@ -18,6 +18,7 @@ def UCS_Traversal(cost, start_point, goals):
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue(maxsize = n)  # Frontier Priority Queue
+    path_found = 0                                              # Flag to check whether a path was found(1)or not(0)
 
     # Insert (0, (start_point, UCS_path_till_start_point)) into priority queue
     frontier_priority_queue.put((0, (start_point, [start_point])))
@@ -30,6 +31,7 @@ def UCS_Traversal(cost, start_point, goals):
         node = nodes_tuple[0]
         ucs_path_till_node = nodes_tuple[1]
         #print(ucs_path_till_node)
+        #print(node_cost, nodes_tuple)
 
         # If the node was not visited
         if visited[node] == 0:
@@ -37,6 +39,7 @@ def UCS_Traversal(cost, start_point, goals):
 
             # If node is a goal_point, return the UCS Path till Goal Node
             if node in goals:
+                path_found = 1
                 return ucs_path_till_node
 
             # For every neighbour connected node
@@ -53,6 +56,9 @@ def UCS_Traversal(cost, start_point, goals):
                         # Insert (total cost till node, (neighbour_node, UCS_path_till_neighbour_node)) into priority queue
                         frontier_priority_queue.put((total_cost_till_node, (neighbour_node, ucs_path_till_neighbour_node)))
 
+    if(path_found == 0):
+        return list()
+
 
 def DFS_Traversal(cost, start_point, goals):
 
@@ -61,6 +67,7 @@ def DFS_Traversal(cost, start_point, goals):
     n = len(cost)                                  # Number of Nodes in Graph
     visited = [0 for i in range(n)]                # Visited Set (0 - not visited, 1 - visited)
     frontier_stack = queue.LifoQueue(maxsize = n)  # Frontier Stack
+    path_found = 0                                 # Flag to check whether a path was found(1)or not(0)
 
     # Insert start_point into stack
     frontier_stack.put(start_point)
@@ -78,6 +85,7 @@ def DFS_Traversal(cost, start_point, goals):
 
             # If node is a goal_point, return the DFS Traversal Path
             if node in goals:
+                path_found = 1
                 return DFS_path
 
             # For every neighbour connected node
@@ -88,6 +96,9 @@ def DFS_Traversal(cost, start_point, goals):
                     # If the connected node is not visited, insert it into the stack
                     if visited[neighbour_node] == 0:
                         frontier_stack.put(neighbour_node)
+
+    if(path_found == 0):
+        return list()
 
 
 # Let's remove this definition comment later on
