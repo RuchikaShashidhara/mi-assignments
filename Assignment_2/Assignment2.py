@@ -42,6 +42,8 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
                     A_star_path_till_neighbour_node.append(neighbour_node)
                     # Insert (estimated total, (neighbour_node, A_star_path_till_neighbour_node, total cost till neighbour nodes)) into priority queue
                     frontier_priority_queue.put((estimated_total_cost, (neighbour_node, A_star_path_till_neighbour_node, total_cost_till_node)))
+    
+    return list()
 
 
 def UCS_Traversal(cost, start_point, goals):
