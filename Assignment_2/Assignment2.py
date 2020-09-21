@@ -18,15 +18,15 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
     #A_star_all_paths = dict()                                   # Dictionary of all paths from every start state to goal state
 
     # Insert (estimated_total_cost, (start_point, A*_path_till_start_node, 0)) into priority queue
-    frontier_priority_queue.put((heuristic[start_point], (start_point, [start_point], 0)))
+    frontier_priority_queue.put((heuristic[start_point], ([start_point], start_point, 0)))
 
     # Until priority queue is not empty
     while(frontier_priority_queue.qsize() != 0):
 
         # Pop the node information from the priority queue
         total_estimated_cost, nodes_tuple = frontier_priority_queue.get()
-        node = nodes_tuple[0]
-        A_star_path_till_node = nodes_tuple[1]
+        A_star_path_till_node = nodes_tuple[0]
+        node = nodes_tuple[1]
         node_cost = nodes_tuple[2]
 
         # If the node was not visited
@@ -52,20 +52,8 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
                     A_star_path_till_neighbour_node = copy.deepcopy(A_star_path_till_node)
                     A_star_path_till_neighbour_node.append(neighbour_node)
                     # Insert (estimated total, (neighbour_node, A_star_path_till_neighbour_node, total cost till neighbour nodes)) into priority queue
-                    frontier_priority_queue.put((estimated_total_cost, (neighbour_node, A_star_path_till_neighbour_node, total_cost_till_node)))
+                    frontier_priority_queue.put((estimated_total_cost, (A_star_path_till_neighbour_node, neighbour_node, total_cost_till_node)))
 
-    """if len(A_star_all_paths) > 0:
-        print(A_star_all_paths)
-        # Get the key with minimum cost
-        key_min = min(A_star_all_paths.keys())
-        # Get the all the paths with this min cost
-        all_min_cost_paths = A_star_all_paths[key_min]
-        # sort list to get lexicological order
-        all_min_cost_paths.sort()
-        # return the ucs lexicological first path
-        return all_min_cost_paths[0]
-    else:
-        return list()"""
     return list()
 
 
@@ -76,18 +64,16 @@ def UCS_Traversal(cost, start_point, goals):
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
     
-    ucs_all_paths = dict()                                      # Dictionary of all paths from every start state to goal state
-
     # Insert (0, (start_point, UCS_path_till_start_point)) into priority queue
-    frontier_priority_queue.put((0, (start_point, [start_point])))
+    frontier_priority_queue.put((0, ([start_point], start_point)))
 
     # Until priority queue is not empty
     while(frontier_priority_queue.qsize() != 0):
 
         # Pop the node information from the priority queue
         node_cost, nodes_tuple = frontier_priority_queue.get()
-        node = nodes_tuple[0]
-        ucs_path_till_node = nodes_tuple[1]
+        ucs_path_till_node = nodes_tuple[0]
+        node = nodes_tuple[1]
 
         # If the node was not visited
         if visited[node] == 0:
@@ -95,7 +81,7 @@ def UCS_Traversal(cost, start_point, goals):
 
             # If node is a goal_point, return the UCS Path till Goal Node
             if node in goals:
-                ucs_all_paths = path_list_append(ucs_all_paths, node_cost, ucs_path_till_node)
+                return ucs_path_till_node
 
             # For every neighbour connected node
             for neighbour_node in range(1, n):
@@ -109,19 +95,9 @@ def UCS_Traversal(cost, start_point, goals):
                         ucs_path_till_neighbour_node = copy.deepcopy(ucs_path_till_node)
                         ucs_path_till_neighbour_node.append(neighbour_node)
                         # Insert (total cost till node, (neighbour_node, UCS_path_till_neighbour_node)) into priority queue
-                        frontier_priority_queue.put((total_cost_till_node, (neighbour_node, ucs_path_till_neighbour_node)))
+                        frontier_priority_queue.put((total_cost_till_node, (ucs_path_till_neighbour_node, neighbour_node)))
                                   
-    if len(ucs_all_paths) > 0:
-        # Get the key with minimum cost
-        key_min = min(ucs_all_paths.keys())
-        # Get the all the paths with this min cost
-        all_min_cost_paths = ucs_all_paths[key_min]
-        # sort list to get lexicological order
-        all_min_cost_paths.sort()
-        # return the ucs lexicological first path
-        return all_min_cost_paths[0]
-    else:
-        return list()
+    return list()
 
 
 def DFS_Traversal(cost, start_point, goals):
