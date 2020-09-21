@@ -1,12 +1,21 @@
 import queue
 import copy
 
+def path_list_append(path_dict, node_cost, path_till_node):
+    if(node_cost not in path_dict):
+        path_dict[node_cost] = [path_till_node]
+    else:
+        path_dict[node_cost].append(path_till_node)
+    return path_dict
+
 def A_star_Traversal(cost, heuristic, start_point, goals):
 
     # Parameters
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
+    
+    #A_star_all_paths = dict()                                   # Dictionary of all paths from every start state to goal state
 
     # Insert (estimated_total_cost, (start_point, A*_path_till_start_node, 0)) into priority queue
     frontier_priority_queue.put((heuristic[start_point], (start_point, [start_point], 0)))
@@ -26,6 +35,7 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
 
             # If node is a goal_point, return the A* Path till Goal Node
             if node in goals:
+                #A_star_all_paths = path_list_append(A_star_all_paths, total_estimated_cost, A_star_path_till_node)
                 return A_star_path_till_node
 
             # For every neighbour connected node
@@ -44,6 +54,18 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
                     # Insert (estimated total, (neighbour_node, A_star_path_till_neighbour_node, total cost till neighbour nodes)) into priority queue
                     frontier_priority_queue.put((estimated_total_cost, (neighbour_node, A_star_path_till_neighbour_node, total_cost_till_node)))
 
+    """if len(A_star_all_paths) > 0:
+        print(A_star_all_paths)
+        # Get the key with minimum cost
+        key_min = min(A_star_all_paths.keys())
+        # Get the all the paths with this min cost
+        all_min_cost_paths = A_star_all_paths[key_min]
+        # sort list to get lexicological order
+        all_min_cost_paths.sort()
+        # return the ucs lexicological first path
+        return all_min_cost_paths[0]
+    else:
+        return list()"""
     return list()
 
 
@@ -53,6 +75,8 @@ def UCS_Traversal(cost, start_point, goals):
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
+    
+    ucs_all_paths = dict()                                      # Dictionary of all paths from every start state to goal state
 
     # Insert (0, (start_point, UCS_path_till_start_point)) into priority queue
     frontier_priority_queue.put((0, (start_point, [start_point])))
@@ -71,7 +95,7 @@ def UCS_Traversal(cost, start_point, goals):
 
             # If node is a goal_point, return the UCS Path till Goal Node
             if node in goals:
-                return ucs_path_till_node
+                ucs_all_paths = path_list_append(ucs_all_paths, node_cost, ucs_path_till_node)
 
             # For every neighbour connected node
             for neighbour_node in range(1, n):
@@ -86,8 +110,18 @@ def UCS_Traversal(cost, start_point, goals):
                         ucs_path_till_neighbour_node.append(neighbour_node)
                         # Insert (total cost till node, (neighbour_node, UCS_path_till_neighbour_node)) into priority queue
                         frontier_priority_queue.put((total_cost_till_node, (neighbour_node, ucs_path_till_neighbour_node)))
-
-    return list()
+                                  
+    if len(ucs_all_paths) > 0:
+        # Get the key with minimum cost
+        key_min = min(ucs_all_paths.keys())
+        # Get the all the paths with this min cost
+        all_min_cost_paths = ucs_all_paths[key_min]
+        # sort list to get lexicological order
+        all_min_cost_paths.sort()
+        # return the ucs lexicological first path
+        return all_min_cost_paths[0]
+    else:
+        return list()
 
 
 def DFS_Traversal(cost, start_point, goals):
