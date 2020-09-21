@@ -135,7 +135,38 @@ def test_case7():
     heuristic = [0, 0, 0, 0]
 
     print("Test case 7")
-    print_test_cases(cost,heuristic, 1, [1,3])
+    print_test_cases(cost, heuristic, 1, [1,3])
+    
+def test_case8():
+        cost = [[0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, -1, 5, -1, -1, 3, -1],
+        [0, -1, 0, -1, -1, 5, -1, -1],
+        [0, -1, 3, 0, -1, 5, 7, -1],
+        [0, -1, -1, -1, 0, -1, 7, 5],
+        [0, 1, 1, -1, -1, 0, 6, 2],
+        [0, 3, -1, 3, -1, -1, 0, 4],
+        [0, 2, -1, 5, -1, 1, 6, 0 ]]
+        
+        heuristic = [0, 7, 0, 0, 10, 5, 0, 1]
+        
+        print("Test case 8")
+        print_test_cases(cost, heuristic, 4, [2, 3, 6])
+    
+def test_case9():  
+    
+    cost =  [[0,0,0,0,0,0,0,0],
+	     [0,0,3,-1,-1,-1,-1,2],
+	     [0,-1,0,5,10,-1,-1,-1],
+	     [0,-1,-1,0,2,-1,1,-1],
+	     [0,-1,-1,-1,0,4,-1,-1],
+	     [0,-1,-1,-1,-1,0,-1,-1],
+	     [0,-1,-1,-1,-1,3,0,-1],
+	     [0,-1,-1,1,-1,-1,4,0]] 
+
+    heuristic = [0 for i in range(8)]
+
+    print("Test case 9")
+    print_test_cases(cost, heuristic, 1, [7])
 
 
 
@@ -146,3 +177,5 @@ test_case4()
 test_case5()
 test_case6()
 test_case7()
+test_case8()
+test_case9()
