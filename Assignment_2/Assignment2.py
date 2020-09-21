@@ -1,21 +1,12 @@
 import queue
 import copy
 
-def path_list_append(path_dict, node_cost, path_till_node):
-    if(node_cost not in path_dict):
-        path_dict[node_cost] = [path_till_node]
-    else:
-        path_dict[node_cost].append(path_till_node)
-    return path_dict
-
 def A_star_Traversal(cost, heuristic, start_point, goals):
 
     # Parameters
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
-    
-    #A_star_all_paths = dict()                                   # Dictionary of all paths from every start state to goal state
 
     # Insert (estimated_total_cost, (start_point, A*_path_till_start_node, 0)) into priority queue
     frontier_priority_queue.put((heuristic[start_point], ([start_point], start_point, 0)))
