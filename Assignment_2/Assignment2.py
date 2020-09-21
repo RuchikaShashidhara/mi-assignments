@@ -6,7 +6,7 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
     # Parameters
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
-    frontier_priority_queue = queue.PriorityQueue(maxsize = n)  # Frontier Priority Queue
+    frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
 
     # Insert (estimated_total_cost, (start_point, A*_path_till_start_node, 0)) into priority queue
     frontier_priority_queue.put((heuristic[start_point], (start_point, [start_point], 0)))
@@ -52,7 +52,7 @@ def UCS_Traversal(cost, start_point, goals):
     # Parameters
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
-    frontier_priority_queue = queue.PriorityQueue(maxsize = n)  # Frontier Priority Queue
+    frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
 
     # Insert (0, (start_point, UCS_path_till_start_point)) into priority queue
     frontier_priority_queue.put((0, (start_point, [start_point])))
@@ -95,7 +95,7 @@ def DFS_Traversal(cost, start_point, goals):
     # Parameters
     n = len(cost)                                  # Number of Nodes in Graph
     visited = [0 for i in range(n)]                # Visited Set (0 - not visited, 1 - visited)
-    frontier_stack = queue.LifoQueue(maxsize = n)  # Frontier Stack
+    frontier_stack = queue.LifoQueue()             # Frontier Stack
 
     # Insert start_point into stack
     frontier_stack.put((start_point, [start_point]))
@@ -103,7 +103,7 @@ def DFS_Traversal(cost, start_point, goals):
     # Until stack is not empty
     while(frontier_stack.qsize() != 0):
 
-        # Pop the node from the stack and append it to the DFS Traversal Path
+        # Pop the node information from the stack
         node, dfs_path_till_node = frontier_stack.get()
 
         # If the node was not visited
