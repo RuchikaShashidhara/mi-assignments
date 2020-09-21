@@ -3,7 +3,6 @@ import copy
 
 def A_star_Traversal(cost, heuristic, start_point, goals):
 
-    # Parameters
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
@@ -26,7 +25,6 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
 
             # If node is a goal_point, return the A* Path till Goal Node
             if node in goals:
-                #A_star_all_paths = path_list_append(A_star_all_paths, total_estimated_cost, A_star_path_till_node)
                 return A_star_path_till_node
 
             # For every neighbour connected node
@@ -45,12 +43,12 @@ def A_star_Traversal(cost, heuristic, start_point, goals):
                     # Insert (estimated total, (neighbour_node, A_star_path_till_neighbour_node, total cost till neighbour nodes)) into priority queue
                     frontier_priority_queue.put((estimated_total_cost, (A_star_path_till_neighbour_node, neighbour_node, total_cost_till_node)))
 
+    # return empty list if path to goal nodes is not found
     return list()
 
 
 def UCS_Traversal(cost, start_point, goals):
 
-    # Parameters
     n = len(cost)                                               # Number of Nodes in Graph
     visited = [0 for i in range(n)]                             # Visited Set (0 - not visited, 1 - visited)
     frontier_priority_queue = queue.PriorityQueue()             # Frontier Priority Queue
@@ -87,13 +85,13 @@ def UCS_Traversal(cost, start_point, goals):
                         ucs_path_till_neighbour_node.append(neighbour_node)
                         # Insert (total cost till node, (neighbour_node, UCS_path_till_neighbour_node)) into priority queue
                         frontier_priority_queue.put((total_cost_till_node, (ucs_path_till_neighbour_node, neighbour_node)))
-                                  
+             
+    # return empty list if path to goal nodes is not found                     
     return list()
 
 
 def DFS_Traversal(cost, start_point, goals):
 
-    # Parameters
     n = len(cost)                                  # Number of Nodes in Graph
     visited = [0 for i in range(n)]                # Visited Set (0 - not visited, 1 - visited)
     frontier_stack = queue.LifoQueue()             # Frontier Stack
@@ -128,6 +126,7 @@ def DFS_Traversal(cost, start_point, goals):
                         # Insert ((neighbour_node, DFS_path_till_neighbour_node)) into the stack
                         frontier_stack.put((neighbour_node, dfs_path_till_neighbour_node))
 
+    # return empty list if path to goal nodes is not found
     return list()
 
 
