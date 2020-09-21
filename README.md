@@ -35,10 +35,12 @@ attribute - string attribute, a certain coulmn name of the panadas dataframe
 | Requirements  | Implementation file | Sample Test Validation file |
 | --------------| ------------------- | --------------------------- |
 | -             | Assignment2.py      | sample_test_case.py         |            
+|               |                     | test_cases.py               | 
 
 ### Instructions to run:
-
 ```python3 sample_test_case.py```
+
+```python3 test_cases.py```
 
 ### Parameters:
 
@@ -57,9 +59,8 @@ start_point - single start node
 goals[m] - list of size 'm' containing 'm' goals to reach from start_point
 
 ### Functions defined: 
-(parameters yet to be added for first 3 functions, additional helper fucntions also to be added)
-1) ```get_selected_attribute(cost, heuristic, sart_point, goals)``` Returns all lexicological first path traversals [[],[],[]] for each - A-star, UCS and DFS traversals
-2)  ```A_star_Traversal()```
-3)  ```UCS_Traversal()``` Returns lexicological first UCS path
-4)  ```DFS_Traversal()``` Returns lexicological first DFS path
+1) ```get_selected_attribute(cost, heuristic, start_point, goals)``` Returns all lexicological first path traversals [[],[],[]] for each - A-star, UCS and DFS traversals
+2)  ```A_star_Traversal(cost, heuristic, start_point, goals)``` Returns lexicological first A star path
+3)  ```UCS_Traversal(cost, start_point, goals)``` Returns lexicological first UCS path
+4)  ```DFS_Traversal(cost, start_point, goals)``` Returns lexicological first DFS path
 
