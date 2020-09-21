@@ -92,29 +92,51 @@ def test_case4():
 
 # Paths 1->3 and 1->2->3 are both valid
 def test_case5():
+
     cost = [[0, 0, 0, 0],
             [0, 0, 5, 10],
             [0, -1, 0, 5],
             [0, -1, -1, 0]]
-
 
     heuristic = [0, 0, 0, 0]
 
     print("Test case 5")
     print_test_cases(cost,heuristic, 1, [3])
 
-# Start state itself is goal state
 def test_case6():
+
+            #0  #1  #2  #3  #4  #5  #6  #7  #8  #9 #10
+    cost  =[[0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0], # 0
+            [0,  0, -1,  6, -1, -1, -1, -1, -1, -1, -1], # 1
+            [0,  2,  0, -1, -1, -1, -1,  2, -1, -1, -1], # 2
+            [0, -1,  2,  0, 10, -1, -1, -1, -1, -1, -1], # 3
+            [0, -1, -1, -1,  0, -1, -1,  1, -1, -1, -1], # 4
+            [0, -1, -1, -1,  8,  0,  2, -1, -1, -1, -1], # 5
+            [0, -1,  3, -1, -1, -1,  0, -1,  6, -1,  7], # 6
+            [0, -1, -1, -1, -1, -1,  5,  0, -1, -1, -1], # 7
+            [0, -1, -1, -1, -1,  4, -1, -1,  0, 10, -1], # 8
+            [0, -1, -1, -1, -1, -1, -1, -1, -1,  0, -1], # 9
+            [0, -1, -1, -1, -1, -1, -1, -1, -1, -1,  0]] #10
+
+    heuristic = [0 for i in range(11)]
+
+    print("Test case 6")
+    print_test_cases(cost, heuristic, 1, [10])
+
+
+# Start state itself is goal state
+def test_case7():
+
     cost = [[0, 0, 0, 0],
             [0, 0, 5, 10],
             [0, -1, 0, 5],
             [0, -1, -1, 0]]
 
-
     heuristic = [0, 0, 0, 0]
 
-    print("Test case 6")
+    print("Test case 7")
     print_test_cases(cost,heuristic, 1, [1,3])
+
 
 
 test_case1()
@@ -123,3 +145,4 @@ test_case3()
 test_case4()
 test_case5()
 test_case6()
+test_case7()
