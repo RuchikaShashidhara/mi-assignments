@@ -64,3 +64,25 @@ goals[m] - list of size 'm' containing 'm' goals to reach from start_point
 3)  ```UCS_Traversal(cost, start_point, goals)``` Returns lexicological first UCS path
 4)  ```DFS_Traversal(cost, start_point, goals)``` Returns lexicological first DFS path
 
+
+## Assignment 3 - Designing Artificial Neural Networks for classification of LBW Cases from Scratch
+
+| Requirements  | Implementation file | Sample Test Validation file |
+| --------------| ------------------- | --------------------------- |
+| numpy         | Neural_Net .py      |                             |            
+| pandas        |                     |                             | 
+
+### Instructions to run:
+```python3 Neural_Net.py```
+
+### Parameters:
+X, Y are dataframes
+
+### Functions defined: 
+
+1) ```fit(self,X,Y)``` Function that trains the neural network by taking x_train and y_train samples as input
+2) ```predict(self,X)``` Predict function performs a simple feed forward of weights	and outputs yhat values yhat is a list of the predicted value for df X
+3) ```CM(y_test,y_test_obs)``` Function to print confusion matrix, where, y_test is list of y values in the test dataset and
+y_test_obs is list of y values predicted by the model
+
+		
