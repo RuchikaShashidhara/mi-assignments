@@ -68,8 +68,8 @@ Hyperparameters for the current model:
 > beta_1(exponential decay rate for the first moment estimates) = 0.9
 > beta_2(The exponential decay rate for the second-moment estimates) = 0.99
 > epsilon = 1e-8
-> Minibatch size:
-> Epochs: 
+> Minibatch size: 67
+> Epochs: 40000
 
 Key Features of our design:
 Our neural network can use any number of nodes in the hidden layers and can use any of the activation functions -
