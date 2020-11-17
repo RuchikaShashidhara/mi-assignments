@@ -1,3 +1,15 @@
+"""
+Neural Network Implementation File
+
+Number of layers: 1 Input Layer, 1 Hidden Layer, 1 Output Layer
+Number of Neurons per Layer: Input Layer: 7(6 features + 1 bias), Hidden Layer: 20, Output Layer: 1
+Dimensions of weight & bias matrices: Input Layer(7 x 20), Hidden Layer(20 x 1)
+Activation functions: Hidden Layer: Tanh, Output Layer: Sigmoid
+Loss function: Binary Cross Entropy
+Optimizing Solver: Adam
+
+"""
+
 import numpy as np
 import pandas as pd
 import math
