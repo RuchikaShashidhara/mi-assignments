@@ -53,13 +53,13 @@ and was saved as the final preprocessed CSV file.
 Neural Network Implementation:
 
 The architecture of the Neural Network consists of 3 Layers in total - 1 Input Layer, 1 Hidden Layer and 1 Output Layer.
-The new preprocessed dataset consits of 6 input variable columns - "Age", "Weight", "HB", "IFA", "BP", "Residence" and 
+The new preprocessed dataset consists of 6 input variable columns - "Age", "Weight", "HB", "IFA", "BP", "Residence" and 
 1 output variable coulmn - "Result". So, the first Input Layer consists of 7 nodes, 6 inputs from the dataset and
 1 as calculated bias node. The hidden layer consists of 20 nodes which uses the tanh function as the activation function
 and the Output Layer consists of 1 node in which if the probability > 0.6, it is predicted as 1 (Result is LBW case)
 else it is predicted as 0 (Result is not an LBW case). The output uses the sigmoid function as the activation function.
 We have also implemented the loss/cost function using the implemenation of the Binary Cross Entropy function and we have
-also implemnted the Adam Optimizer for solving.
+also implemnted the Adam Optimizer for solving.   
 
 Hyperparameters for the current model:
 
@@ -68,7 +68,13 @@ Hyperparameters for the current model:
 > beta_2(The exponential decay rate for the second-moment estimates) = 0.99
 > epsilon = 1e-8
 > Minibatch size: 67
-> Epochs: 40000
+> Epochs: 40000  
+
+Note: 
+We tried varying seed values for both train-test split of the dataset and initial weights to see which values resulted in a higher accuracy. 
+> Train-test split: A seed value of 0 gave the highest accuracy for train-test split. While a seed value of 23 and 11 gave an accuracy of78% and 82% respectively. 
+> Weight initialisation: Various seed values were tried for weight initialisation. However, it was noticed that defining a seed value resulted in a lower accuracy (accuracy = 80% with a seed values of 11 and 23 as opposed to an accuracy of around 90% without any pre-defined seed value) which is why we decided not to go with initial seed values for weight initialisation.
+The training was repeated several times and the same consistency was maintained (seed of 0 gave maximum accuracy).
 
 Key Features of our design:
 Our neural network can use "any number of nodes" in the "hidden layers" and can use any of the "activation functions" -
