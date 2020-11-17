@@ -1,6 +1,6 @@
 Course: Machine Intelligence (UE18CS303)
 
-Assignment: Designing Artificial Neural Networks for Classification of LBW Cases from Scratch
+Assignment #3: Designing Artificial Neural Networks for Classification of LBW Cases from Scratch
 Team Name: PESU-MI_0046_1282_1445
 
 File Structure:
@@ -17,7 +17,6 @@ PESU-MI_0046_1282_1445/
 |   
 | - README.txt 
  
- 
 
 Steps to run the Neural Net implementation:
 Install the following dependencies:
@@ -30,10 +29,9 @@ For creating the cleaned datset again, place the original uncleaned dataset in s
 python3 src/data_preprocessing.py
 
 
-
 Data Preprocessing is taken care only by simple numpy & pandas methods:
 
-> The dataset was read into a dataframe using pandas
+> The dataset was read into a dataframe using pandas.
 
 > The columns "Community", "Delivery Phase", "Education" were dropped, as there was less co-relation with Result Column.
 "Delivery Phase" and "Education" also had the same attribute values for more than 94% of the data.
@@ -46,9 +44,10 @@ Data Preprocessing is taken care only by simple numpy & pandas methods:
 This was implemented in the scale_outlier function we defined.
 
 > We also labelled Residence = 2 as Residence = 0 to get Binary Labelled Column (Before: Residence(1,2), After: Residence(1,0))
-The missing values(NaNs) in the "Residence" column was replaced with its Mode = 1
+The missing values(NaNs) in the "Residence" column was replaced with its Mode = 1.
 
-> Finally, all the data in each coulmn was Normalized using Min-Max Scaling by the function we defined - min-max-scaling
+> Finally, all the data in each coulmn was Normalized using Min-Max Scaling by the function we defined - min-max-scaling 
+and was saved as the final preprocessed CSV file.
 
 
 Neural Network Implementation:
@@ -74,5 +73,7 @@ Hyperparameters for the current model:
 Key Features of our design:
 Our neural network can use "any number of nodes" in the "hidden layers" and can use any of the "activation functions" -
 "tanh", "relu", "sigmoid"/"logistic", and "identity". We also input 1 extra node for bias for better learning of the neural network.
-The hyperparamters can also be changed while creating a NN object.
+The hyperparamters can also be changed for other NN models by mentionaing it while calling the NN object.
+
+
 
