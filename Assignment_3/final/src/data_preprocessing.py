@@ -50,13 +50,9 @@ def preprocess_data(df):
     # Filling NaN with Mode = 1
     df["Residence"] = df["Residence"].fillna(1)
 
-    # Converting IFA(int) to IFA(float)
+    # Converting all other values to float
     df["IFA"] = df["IFA"].astype(float)
-
-    # Moving converted Float Result, to get it as the last Column
-    res = df["Result"].astype(float)
-    df = df.drop(["Result"], axis = 1)
-    df["Result"] = res
+    df["Result"] = df["Result"].astype(float)
 
     # Performing Normalization of the dataset (into ranges from 0 to 1) using Pandas
     df = min_max_scaling(df)
