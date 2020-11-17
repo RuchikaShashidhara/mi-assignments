@@ -72,7 +72,7 @@ Hyperparameters for the current model:
 > Epochs: 40000
 
 Key Features of our design:
-Our neural network can use any number of nodes in the hidden layers and can use any of the activation functions -
-tanh, relu, sigmoid/logistic, and identity. We also input 1 extra node for bias for better learning of the neural network.
+Our neural network can use "any number of nodes" in the "hidden layers" and can use any of the "activation functions" -
+"tanh", "relu", "sigmoid"/"logistic", and "identity". We also input 1 extra node for bias for better learning of the neural network.
 The hyperparamters can also be changed while creating a NN object.
 
