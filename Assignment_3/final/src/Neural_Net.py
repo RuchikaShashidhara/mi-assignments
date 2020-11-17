@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import math
-np.random.seed(0)
 
 def sigmoid(x):
   return [1 / (1 + math.exp(-ele)) for ele in x ]
