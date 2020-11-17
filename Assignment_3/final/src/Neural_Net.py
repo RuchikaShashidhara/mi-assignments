@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import math
+np.random.seed(0)
 
 def sigmoid(x):
   return [1 / (1 + math.exp(-ele)) for ele in x ]
@@ -40,9 +41,10 @@ class layer():
         self.epsilon = 1e-8
         
     def forward_prop(self, inputs):
+
         forward_units = np.dot(inputs, self.weights)
+
         self.input = inputs.reshape(self.input_units)
-        self.forward_units = forward_units.reshape(self.output_units)
         
         if self.activation == 'tanh':
             self.activated_output = np.tanh(forward_units)
@@ -59,6 +61,7 @@ class layer():
         return self.activated_output
     
     def update_weights(self, grad):
+
         # adam optimiser
         grad = grad.reshape(self.weights.shape)
         self.m = self.beta_1*self.m + grad*(1-self.beta_1)
@@ -69,18 +72,22 @@ class layer():
         v_hat = self.v/(1 - pow(self.beta_2, self.t))
         tmp = self.alpha*(m_hat/(np.sqrt(v_hat) + self.epsilon))
                           
+		# updating the weights
         self.weights = self.weights - tmp          
     
     def loss_function(self, target):
+
+		# loss function : binary cross entropy
         return [-(target*math.log(ele) + (1-target)*math.log(1-ele)) for ele in self.activated_output]
   
-class NN:
+class Neural_Network:
 
 	def __init__(self, size, activation):
 		self.num_iters = 40000
 		self.network = []
 		self.layers = len(size)
 
+		# creating the network 
 		for i in range(self.layers-1):
 			self.network.append(layer(size[i], size[i+1], activation = activation[i]))
 
@@ -88,8 +95,11 @@ class NN:
 	def fit(self,X,Y):
 		# Function that trains the neural network by taking x_train and y_train samples as input
 		for i in range(self.num_iters):
+
 			for ind, inputs in enumerate(X):
 				outputs = Y[ind]
+
+				# forward propagation of inputs through all the layers
 				for layer in self.network:
 					inputs = layer.forward_prop(inputs)
 
@@ -98,6 +108,7 @@ class NN:
 				output_layer = self.network[1]
 				hidden_layer = self.network[0]
 
+				# backpropagation - updating the weights
 				grad = gradient_tanh(prediction, outputs, output_layer.weights, hidden_layer.activated_output, X_train[ind])
 				hidden_layer.update_weights(grad) 
 				
@@ -112,6 +123,8 @@ class NN:
 		yhat = []
 		for ind, inputs in enumerate(X):
 			outputs = y[ind]
+
+			# forward propagation of inputs through all the layers
 			for layer in self.network:
 				inputs = layer.forward_prop(inputs)
 			
@@ -151,29 +164,47 @@ class NN:
 		f1=(2*p*r)/(p+r)
 		accuracy = (tp+tn)/(tp+tn+fp+fn)
 
-		print("Confusion Matrix : ")
-		print(cm)
-		print()
+		print("Confusion Matrix : ",cm)
 		print(f"Precision : {p}")
 		print(f"Recall : {r}")
 		print(f"F1 SCORE : {f1}")
 		print(f"Accuracy : {accuracy}")
 
-# Reading the dataset using Pandas
-df = pd.read_csv("LBW_Preprocessed.csv")
+if __name__ == "__main__":
 
-# Creating Train-Test Splits of the dataset using .train_test_split() in Sklearn
-from sklearn.model_selection import train_test_split
-X = df.iloc[:,:-1].values
-y = df.iloc[:,-1:].values
+	# Reading the cleaned dataset using Pandas
+	df = pd.read_csv("LBW_Preprocessed.csv")
 
-X = np.insert(X, 0, np.ones(np.shape(X)[0]), axis=1)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)
+	# Creating Train-Test Splits of the dataset using .train_test_split() in Sklearn
+	from sklearn.model_selection import train_test_split
+	X = df.iloc[:,:-1].values
+	y = df.iloc[:,-1:].values
 
-classifier = NN((6+1, 20, 1), ('tanh', 'logistic'))
-classifier.fit(X_train, y_train)
-prediction = classifier.predict(X_test)
-classifier.CM(y_test, prediction)
+	# Extra column filled with ones to account for the bias term
+	X = np.insert(X, 0, np.ones(np.shape(X)[0]), axis=1)
+	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)
+
+	# Creating ANN with
+	# 	7 inputs nodes
+	# 	20 nodes in hidden layer, 'tanh' - activation function
+	#	1 node in output layer, 'sigmoid' - activation function
+	classifier = Neural_Network((6+1, 20, 1), ('tanh', 'logistic'))
+
+	# Training the neural network on train dataset
+	classifier.fit(X_train, y_train)
+
+	print("\n\tTEST DATASET")
+	# Using the trained neural network to predict
+	prediction = classifier.predict(X_test)
+
+	# prints the performance metrics
+	classifier.CM(y_test, prediction)
+
+	
+	# Performance matric of the network on training dataset
+	print("\n\tTRAIN DATASET")
+	prediction = classifier.predict(X_train)
+	classifier.CM(y_train, prediction)
 
 
 
