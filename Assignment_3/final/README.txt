@@ -12,8 +12,8 @@ PESU-MI_0046_1282_1445/
 |
 | - src/
 |   | - LBW_Preprocessed.csv
-|   | - data_preprocessing.py
-|   | - neural_net.py
+|   | - Data_Preprocessing.py
+|   | - Neural_Net.py
 |   
 | - README.txt 
  
