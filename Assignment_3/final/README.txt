@@ -13,7 +13,7 @@ PESU-MI_0046_1282_1445/
 | - src/
 |   | - LBW_Preprocessed.csv
 |   | - data_preprocessing.py
-|   | - neural_net.py
+|   | - Neural_Net.py
 |   
 | - README.txt 
  
@@ -23,7 +23,7 @@ Install the following dependencies:
 numpy, pandas, sklearn
 
 For using the Neural Network for predictions, simply run:
-python3 src/neural_net.py
+python3 src/Neural_Net.py
 
 For creating the cleaned datset again, place the original uncleaned dataset in src folder & run 
 python3 src/data_preprocessing.py
