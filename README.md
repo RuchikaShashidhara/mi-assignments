@@ -9,14 +9,13 @@
 
 ### Implementation file: 
 ```Assignment1.py```  
-<br/>
 
 ### Instructions to run sample tests:
 
 ```python3 DT_SampleTestCase.py```
 
 ```python3 test_cases.py``` 
-<br/><br/>
+<br/>
 
 ### Functions defined:
 
@@ -30,18 +29,16 @@
 <br/><br/>
 
 ## Assignment 2 - Search Algorithms
-<br/>
 
 ### Implementation file: 
 ```Assignment2.py```
-<br/>
 
 ### Instructions to run sample tests:
 
 ```python3 sample_test_case.py```
 
 ```python3 test_cases.py```
-<br/><br/>
+<br/>
 
 ### Functions defined: 
 1) ```get_selected_attribute(cost, heuristic, start_point, goals)``` returns all lexicological first path traversals [[],[],[]] for each - A-star, UCS and DFS traversals
@@ -54,20 +51,19 @@
 <br/><br/>
 
 ## Assignment 3 - Designing an Artificial Neural Network for classification of LBW Cases from scratch
-<br/>
 
 ### Implementation files:
+
 ```Neural_Net.py```
 
 ```data_preprocessing.py```
-<br/>
 
 ### Instructions to run: 
 
 ```python3 data_preprocessing.py```
 
 ```python3 Neural_Net.py```
-<br/><br/>
+<br/>
 
 ### Steps taken for Data Preprocessing:
 
@@ -84,7 +80,7 @@
 * Residence = 2 was also labelled as Residence = 0 to get Binary Labelled Column (Before: Residence(1,2), After: Residence(1,0)). The missing values(NaNs) in the "Residence" column was replaced with its Mode = 1.
 
 * Finally, all the data in each coulmn was Normalized using Min-Max Scaling by the function - min-max-scaling and was saved as the final preprocessed CSV file.
-<br/><br/>
+<br/>
 
 ### ANN Design:
 
