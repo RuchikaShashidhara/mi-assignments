@@ -2,7 +2,7 @@
 
 ### Team Members: Kavya, Ruchika and Sonam
 
-### Requirements: numpy, pandas and sklearn
+### Requirements: numpy, pandas and scikit-learn
 <br/>
 
 ---
