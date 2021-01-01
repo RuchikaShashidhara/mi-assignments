@@ -50,7 +50,7 @@
 4)  ```DFS_Traversal(cost, start_point, goals)``` returns lexicological first DFS path
 <br/><br/>
 
-## Assignment 3 - Designing an Artificial Neural Network for classification of LBW Cases from scratch
+## Assignment 3 - Designing an Artificial Neural Network for Classification of LBW Cases from scratch
 
 ### Implementation files:
 
