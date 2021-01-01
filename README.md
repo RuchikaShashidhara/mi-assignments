@@ -80,7 +80,6 @@
 * Residence = 2 was also labelled as Residence = 0 to get Binary Labelled Column (Before: Residence(1,2), After: Residence(1,0)). The missing values(NaNs) in the "Residence" column was replaced with its Mode = 1.
 
 * Finally, all the data in each coulmn was Normalized using Min-Max Scaling by the function - min-max-scaling and was saved as the final preprocessed CSV file.
-<br/>
 
 ### ANN Design:
 
