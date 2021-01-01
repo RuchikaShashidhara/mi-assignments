@@ -1,16 +1,14 @@
 # mi-assignments
 
-### Team Members: Kavya, Ruchika and Sonam
+#### Team Members: Kavya, Ruchika and Sonam
 
-### Requirements: numpy, pandas and scikit-learn
+#### Requirements: numpy, pandas and scikit-learn
 <br/>
-
----
 
 ## Assignment 1 - ID3 Attribute Selection 
-<br/>
 
-### Implementation file:  ```Assignment1.py```  
+### Implementation file: 
+```Assignment1.py```  
 <br/>
 
 ### Instructions to run sample tests:
@@ -31,12 +29,11 @@
 4) ```get_selected_attribute(df)``` returns the Attribute with highest Information Gain
 <br/><br/>
 
----
-
 ## Assignment 2 - Search Algorithms
 <br/>
 
-### Implementation file: ```Assignment2.py```
+### Implementation file: 
+```Assignment2.py```
 <br/>
 
 ### Instructions to run sample tests:
@@ -56,12 +53,13 @@
 4)  ```DFS_Traversal(cost, start_point, goals)``` returns lexicological first DFS path
 <br/><br/>
 
----
-
 ## Assignment 3 - Designing an Artificial Neural Network for classification of LBW Cases from scratch
 <br/>
 
-### Implementation files: ```Neural_Net.py``` and ```data_preprocessing.py```
+### Implementation files:
+```Neural_Net.py```
+
+```data_preprocessing.py```
 <br/>
 
 ### Instructions to run: 
@@ -100,7 +98,6 @@ Hyperparameters for the current model:
 * epsilon = 1e-8
 * Minibatch size: 67
 * Max Epochs: 40000  
-<br/>
 
 ### Functions defined: 
 
